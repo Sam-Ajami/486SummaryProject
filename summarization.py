@@ -69,6 +69,27 @@ def splitIntoSentences(file):
             
     return sentences
 
+# createSentenceObjects - Attach a set of terms to each sentence.
+# Input:  list of sentences as strings
+# Output: list of ourSentence objects
+def createSentenceObjects(sentences):
+    sentenceObjects = []
+    # get stopwords
+    s = open("stopwords", "r")
+    stopwords = s.read().split()
+    # iterate through the list of sentences
+    for sentence in sentences:
+        # Tokenize sentence
+        tokens = tokenizeText(sentence)
+        # Remove stopwords from sentence tokens
+        tokens = removeStopwords(tokens, stopwords)
+        # Stem the tokens of the sentence
+        stemmed = stemWords(tokens)
+        # Create ourSentence object and append to list of ourSentence objects
+        sentenceObjects.append(ourSentence(sentence, stemmed))
+    # Return the list of ourSentence objects
+    return sentenceObjects
+
 '''
 file = "string"
 listOfSentences = splitIntoSentences(file)
