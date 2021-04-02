@@ -10,6 +10,19 @@ from operator import itemgetter
 from stemmer import PorterStemmer
 from preprocess import removeSGML,tokenizeText,removeStopwords,stemWords,removePunks
 
+class ourSentence:
+    def __init__(self, sentence, listOfTerms):
+        self.sentence = sentence
+        self.listOfTerms = listOfTerms
+    sentence=""         #theSentence   
+    listOfTerms=[]     #list of terms in document
+    score = 0           #score
+    #newSentence = ourSentence(sentenceString, ["hello", "world"]])
+    #listOfSentences=[]
+    #
+    #listOfSentences[6].score = score
+
+
 def natural_sort(l): 
     convert = lambda text: int(text) if text.isdigit() else text.lower() 
     alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key.name) ] 
@@ -71,3 +84,5 @@ with os.scandir(sys.argv[1]) as entries:
         #for elements in re.split('(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s',a):
         #    print(elements)
         #    print("split")
+
+        
