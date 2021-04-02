@@ -69,6 +69,17 @@ def splitIntoSentences(file):
             
     return sentences
 
+'''
+file = "string"
+listOfSentences = splitIntoSentences(file)
+
+listOfSentenceObjects=DominicFunction(listOfSentences) #return List of OurSentence
+termFrequency=ErinFunction(listOfSentenceObjects) #term dictionary term:frequency
+termScores=SamFunction(termFrequency)               #term dictionary term:score
+listOfSentenceObjects=LaurenFunction(listOfSentenceObjects,termScores)  #List of OurSentence, with scores filled in 
+sort(listOfSentenceObjects)
+'''
+
 print("\n")
 #sys.argv[1]
 with os.scandir(sys.argv[1]) as entries:
@@ -85,4 +96,3 @@ with os.scandir(sys.argv[1]) as entries:
         #    print(elements)
         #    print("split")
 
-        
