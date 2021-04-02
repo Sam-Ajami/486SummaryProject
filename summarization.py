@@ -25,6 +25,24 @@ def splitIntoSentences(file):
     inQuote=False
     sentences = []
     beginning=0
+    tokenized = tokenizeText(file)
+    sentence = ""
+    for token in tokenized:
+        if(isAPunk(token)):
+            sentence+=token
+        else:
+            sentence+=" "+token
+
+        if(token=="\"" and not inQuote):
+            inQuote=True
+        elif(token=="\"" and inQuote):
+            inQuote=False #
+        if(isDelineator(token) and not inQuote):
+            if(file[beginning:index+1]!="\n\n" and file[beginning:index+1]!="\n"):
+                sentences.append(sentence)
+                print(sentence)
+                sentence = ""
+    '''
     for index, words in enumerate(file):
         if(words=="\"" and not inQuote):
             inQuote=True
@@ -34,6 +52,7 @@ def splitIntoSentences(file):
             if(file[beginning:index+1]!="\n\n" and file[beginning:index+1]!="\n"):
                 sentences.append(file[beginning:index+1].replace("\n", ""))
                 beginning=index+1
+    '''
             
     return sentences
 
