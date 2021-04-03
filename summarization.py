@@ -90,6 +90,48 @@ def createSentenceObjects(sentences):
     # Return the list of ourSentence objects
     return sentenceObjects
 
+
+#input dictionary of term frequencies
+#output dictionary of term scores
+def getScoreDictionary(termFrequencies):
+    termFrequencyTuples=[]
+    termScoreDict={}
+    #turn dictionary into list of tuples and sort from most to least common
+    for words in termFrequencies:
+        termFrequencyTuples.append((words,termFrequencies[words]))
+    termFrequencyTuples.sort(key=lambda tup: tup[1],reverse=True)
+    print(termFrequencyTuples)
+
+    #Translate frequency into rank
+    rank = 1
+    frequency = -1
+    for index, tuples in enumerate(termFrequencyTuples):
+        #If this is the first term in the list, make its rank 1 and set the starting max frequency
+        if(frequency==-1):
+            frequency = tuples[1]
+            termFrequencyTuples[index] = (termFrequencyTuples[index][0], rank)
+            #If we encounter a new freqeuncy, increment the rank and make that the rank of this term
+        elif(tuples[1]!=frequency):
+            frequency = tuples[1]
+            rank += 1
+            termFrequencyTuples[index] = (termFrequencyTuples[index][0], rank)
+            #if we don't encounter a new rank, this term has the same rank as the previous example
+        elif(tuples[1]==frequency):
+            termFrequencyTuples[index] = (termFrequencyTuples[index][0], rank)
+
+    #print ranks for resting purposes
+    print(termFrequencyTuples)
+
+    #get maxRank
+    maxRank=termFrequencyTuples[-1][1]
+    print(maxRank)  
+
+    #Convert ranks into scores and place it into a dictionary
+    for index, tuples in enumerate(termFrequencyTuples):
+        termScoreDict[termFrequencyTuples[index][0]]= maxRank - termFrequencyTuples[index][1] + 1
+
+    #return the dictionary
+    return termScoreDict
 '''
 file = "string"
 listOfSentences = splitIntoSentences(file)
