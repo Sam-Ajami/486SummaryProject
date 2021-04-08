@@ -132,6 +132,17 @@ def getScoreDictionary(termFrequencies):
 
     #return the dictionary
     return termScoreDict
+
+def getTermFreqs(sentenceObjList): #Erin's function :)
+    word_freqs = {}
+    for sentence in sentenceObjList:
+        for word in sentence.listOfTerms
+            if word in word_freqs:
+                word_freqs[word] += 1
+            else:
+                word_freqs[word] = 1
+    return word_freqs
+
 '''
 file = "string"
 listOfSentences = splitIntoSentences(file)
