@@ -16,22 +16,22 @@ def natural_sort(l):
     return sorted(l, key = alphanum_key)
 
 def isDelineator(words):
-    if(words=="." or words=="!" or words=="?" or words=="\n"):
+    if(words == "." or words == "!" or words == "?" or words == "\n"):
         return True
     else:
         return False
 
 def splitIntoSentences(file):
-    inQuote=False
+    inQuote = False
     sentences = []
-    beginning=0
+    beginning = 0
     for index, words in enumerate(file):
-        if(words=="\"" and not inQuote):
-            inQuote=True
-        elif(words=="\"" and inQuote):
-            inQuote=False #
+        if(words == "\"" and not inQuote):
+            inQuote = True
+        elif(words == "\"" and inQuote):
+            inQuote = False #
         if(isDelineator(words) and not inQuote):
-            if(file[beginning:index+1]!="\n\n" and file[beginning:index+1]!="\n"):
+            if(file[beginning:index+1] != "\n\n" and file[beginning:index+1]!= "\n"):
                 sentences.append(file[beginning:index+1].replace("\n", ""))
                 beginning=index+1
             
@@ -52,3 +52,10 @@ with os.scandir(sys.argv[1]) as entries:
         #for elements in re.split('(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s',a):
         #    print(elements)
         #    print("split")
+
+#Attach to each sentence, a set of its terms.
+#Remove stop words from each of these sets.
+#Associate words with their grammatical coun-terparts (stemming) for each of these sets.
+
+
+#Attach to each sentence the sum of their words’ points, divided by the length of the sentence
