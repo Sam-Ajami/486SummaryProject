@@ -143,14 +143,8 @@ def getTermFreqs(sentenceObjList): #Erin's function :)
                 word_freqs[word] = 1
     return word_freqs
 
-
-'''
-Attach to each sentence the sum of their words’ points, divided by the length of the sentence (Lauren) 
-Loop through the sentences and loop through the words in the sentence and add up all the scores of the words from the dictionary. 
-Divide by length of sentence to normalize
-'''
 #Lauren's Function
-getSentences(listOfSentenceObjects,termScores): 
+def getSentenceScores(listOfSentenceObjects,termScores): 
     OurSentence = {}
     wordSum = 0.0
 
