@@ -152,6 +152,7 @@ def getSentenceScores(listOfSentenceObjects,termScores):
         for word in sentence:
             wordSum += termScores[word]
         OurSentence[sentence] = float(wordSum/float(len(sentence)))
+        wordSum = 0.0
 
     return OurSentence
 
