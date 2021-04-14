@@ -13,6 +13,7 @@ def removeSGML(input):
 def tokenizeText(tokenInput):
     #do standard python split, and find exceptions
     split = tokenInput.split()
+    #split=re.findall(r'\S+|\n',tokenInput)
     #print(split)
 
     for index,words in enumerate(split):

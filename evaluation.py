@@ -28,25 +28,31 @@ def isAPunk (word):
         return False
 
 def splitIntoSentences(file):
+    #print("\n\n")
     inQuote=False
     sentences = []
     beginning=0
-    tokenized = tokenizeText(file)
+    tokenized = tokenizeText(file.replace("”", "\"").replace("“", "\"").replace("‘", "'").replace("’", "'"))
     sentence = ""
     for token in tokenized:
-        if(isAPunk(token)):
+        token=token
+        if(isAPunk(token) and not (token=="\"" or token=="'" or token=="”" or token=="“" or token=="‘" or token=="’")):
             sentence+=token
         else:
             sentence+=" "+token
 
-        if(token=="\"" and not inQuote):
+        if((token=="\"" or token=="”" or token=="“") and not inQuote):
             inQuote=True
-        elif(token=="\"" and inQuote):
+        elif((token=="\"" or token=="”" or token=="“") and inQuote):
             inQuote=False #
         if(isDelineator(token) and not inQuote):
             if(file[beginning:index+1]!="\n\n" and file[beginning:index+1]!="\n"):
-                sentences.append(sentence)
-                print(sentence)
+                sentence=sentence.replace("”", "\"")
+                sentence=sentence.replace("“", "\"")
+                sentence=sentence.replace("‘", "'")
+                sentence=sentence.replace("’", "'")
+                sentences.append(sentence.lower())
+                #print(sentence.lower(),end="\n\n")
                 sentence = ""
     '''
     for index, words in enumerate(file):
@@ -70,18 +76,23 @@ with os.scandir(sys.argv[1]) as summaries, os.scandir(sys.argv[2]) as ourSummari
     summaries=natural_sort(summaries)
     ourSummaries=natural_sort(ourSummaries)
     for index,entry in enumerate(summaries):
+        if(index==18):
+            print("here dummy")
         averager+=1
-        f = open(entry, "r")
-        g = open(ourSummaries[index], "r")
+        f = open(entry, "r", encoding="utf8")
+        g = open(ourSummaries[index], "r", encoding="utf8")
         a=f.read()
         b=g.read()
         relevantSummary=splitIntoSentences(a)
+        relevantSummarySum=""
+        for sentences in relevantSummary:
+            relevantSummarySum+=sentences
         ourSummary=splitIntoSentences(b)
         numOfRelevantSentences = len(relevantSummary)   #A
         numOfReturnedSentences = len(ourSummary)        #B
         numOfRelevantReturnedSentences = 0              #C
-        for sentences in ourSummary:
-            if sentences in relevantSummary:
+        for sentences in ourSummary:   
+            if relevantSummarySum.find(sentences)>-1:
                 numOfRelevantReturnedSentences+=1
         
         print("Article "+str(index+1))
@@ -96,5 +107,5 @@ with os.scandir(sys.argv[1]) as summaries, os.scandir(sys.argv[2]) as ourSummari
         recSum+=numOfRelevantReturnedSentences/numOfRelevantSentences
     
 print("Macro-Average: ")
-print("\tPrecision: "+str(preSum/averager))
 print("\tRecall: "+str(recSum/averager))
+print("\tPrecision: "+str(preSum/averager))
